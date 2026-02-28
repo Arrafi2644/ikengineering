@@ -154,9 +154,9 @@ server/
 4. Use a process manager like PM2 for production:
    ```bash
    bun install -g pm2
-   pm2 start src/server.ts --name "kr-engineering-server"
+   pm2 start src/server.ts --name "ik-engineering-server"
    ```
-
+pm2 start src/server.ts --name "ikengineering"
 ## Troubleshooting
 
 ### Email not sending

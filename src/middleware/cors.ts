@@ -2,8 +2,8 @@ import cors from "cors";
 
 const allowedOrigins = [
   process.env.FRONTEND_URL,
-  `http://localhost:${process.env.PORT || 3005}`,
-  `http://127.0.0.1:${process.env.PORT || 3005}`
+  `http://localhost:${process.env.PORT || 3001}`,
+  `http://127.0.0.1:${process.env.PORT || 3001}`
 ].filter(Boolean);
 
 export const corsOptions: cors.CorsOptions = {
