@@ -1,0 +1,33 @@
+<div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+  <h2 style="color: #1e40af;">New Contact Form Submission</h2>
+  <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3 style="color: #374151; margin-top: 0;">Contact Information</h3>
+    <p><strong>Name:</strong> <%= name %></p>
+    <p><strong>Email:</strong> <%= email %></p>
+    <p><strong>Phone:</strong> <%= phone %></p>
+    <% if (company) { %>
+      <p><strong>Company:</strong> <%= company %></p>
+    <% } %>
+    <% if (preferredContactTime) { %>
+      <p><strong>Preferred Contact Time:</strong> <%= preferredContactTime %></p>
+    <% } %>
+  </div>
+
+  <div style="background-color: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+    <h3 style="color: #374151; margin-top: 0;">Project Details</h3>
+    <p><strong>Project Type:</strong> <%= projectType %></p>
+    <p><strong>Details:</strong></p>
+    <p style="white-space: pre-wrap;"><%= projectDetails %></p>
+  </div>
+
+  <% if (uploadSpec) { %>
+    <div style="background-color: #fef3c7; padding: 20px; border-radius: 8px; margin: 20px 0;">
+      <p><strong>📎 Specification file attached:</strong> <%= uploadSpec %></p>
+    </div>
+  <% } %>
+
+  <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 30px 0;">
+  <p style="color: #6b7280; font-size: 14px;">
+    This message was sent from the IK Engineering website contact form.
+  </p>
+</div>

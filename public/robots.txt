@@ -1,0 +1,29 @@
+# Robots.txt for IK Engineering
+# https://ikengineering.co.nz/robots.txt
+
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: *
+Allow: /
+Crawl-delay: 2
+
+# Disallow admin/private areas (if any in future)
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /*?*utm_*
+
+# Sitemap location
+Sitemap: https://ikengineering.co.nz/sitemap.xml

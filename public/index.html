@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IK Engineering - End-to-End Skilled Labour & Project Management</title>
+    <meta name="description" content="IK Engineering provides comprehensive skilled labour and project management services including welding, fabrication, machine operation, and equipment hire across New Zealand." />
+    <meta name="author" content="IK Engineering" />
+
+    <!-- Immediate favicon override - prevent any default favicon loading -->
+    <script>
+      // Override favicon immediately before any default loading
+      (function() {
+        // Remove any existing favicon links first
+        var existingLinks = document.querySelectorAll('link[rel*="icon"]');
+        existingLinks.forEach(function(link) {
+          link.parentNode.removeChild(link);
+        });
+        
+        // Create and inject new favicon immediately
+        var timestamp = Date.now();
+        var faviconUrl = 'https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg?v=' + timestamp;
+        
+        // Multiple favicon formats for complete coverage
+        var links = [
+          { rel: 'icon', type: 'image/png', sizes: 'any' },
+          { rel: 'icon', type: 'image/png', sizes: '32x32' },
+          { rel: 'icon', type: 'image/png', sizes: '16x16' },
+          { rel: 'shortcut icon', type: 'image/png' },
+          { rel: 'apple-touch-icon', type: 'image/png' }
+        ];
+        
+        links.forEach(function(linkConfig) {
+          var link = document.createElement('link');
+          link.rel = linkConfig.rel;
+          link.type = linkConfig.type;
+          if (linkConfig.sizes) link.sizes = linkConfig.sizes;
+          link.href = faviconUrl;
+          document.head.appendChild(link);
+        });
+      })();
+    </script>
+
+    <!-- Static favicon declarations with maximum cache busting -->
+    <link rel="icon" type="image/jpeg" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg" sizes="any">
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
+    <link rel="icon" type="image/jpeg" sizes="16x16" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
+    <link rel="shortcut icon" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
+    <link rel="apple-touch-icon" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Open+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <meta property="og:title" content="IK Engineering - End-to-End Skilled Labour & Project Management" />
+    <meta property="og:description" content="Leading provider of skilled labour and project management services in New Zealand. Specializing in welding, fabrication, machine operation, and equipment hire." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ikengineering.co.nz" />
+    <meta property="og:image" content="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="IK Engineering - Professional Engineering Services" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="IK Engineering - End-to-End Skilled Labour & Project Management" />
+    <meta name="twitter:description" content="Leading provider of skilled labour and project management services in New Zealand." />
+    <meta name="twitter:image" content="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg" />
+    <script type="module" crossorigin src="/assets/index-NmgjARBW.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CIUu9H_P.css">
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </body>
+</html>
