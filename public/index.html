@@ -9,7 +9,7 @@
     <meta name="author" content="IK Engineering" />
 
     <!-- Immediate favicon override - prevent any default favicon loading -->
-    <script>
+    <!-- <script>
       // Override favicon immediately before any default loading
       (function() {
         // Remove any existing favicon links first
@@ -40,14 +40,54 @@
           document.head.appendChild(link);
         });
       })();
-    </script>
+    </script> -->
 
     <!-- Static favicon declarations with maximum cache busting -->
-    <link rel="icon" type="image/jpeg" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg" sizes="any">
+    <!-- <link rel="icon" type="image/jpeg" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg" sizes="any">
     <link rel="icon" type="image/jpeg" sizes="32x32" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
     <link rel="icon" type="image/jpeg" sizes="16x16" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
     <link rel="shortcut icon" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
-    <link rel="apple-touch-icon" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg">
+    <link rel="apple-touch-icon" href="https://bbrvkmdwjnotdugbcevs.supabase.co/storage/v1/object/public/londimg/Fav-Icon-high-resolution%20white-JPG.jpg"> -->
+
+<!-- Immediate favicon override -->
+<script>
+  (function() {
+    // Remove any existing favicon links first
+    var existingLinks = document.querySelectorAll('link[rel*="icon"]');
+    existingLinks.forEach(function(link) {
+      link.parentNode.removeChild(link);
+    });
+
+    // Create and inject new favicon immediately
+    var timestamp = Date.now();
+    var faviconUrl = 'https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png?v=' + timestamp;
+
+    // Multiple favicon formats for complete coverage
+    var links = [
+      { rel: 'icon', type: 'image/png', sizes: 'any' },
+      { rel: 'icon', type: 'image/png', sizes: '32x32' },
+      { rel: 'icon', type: 'image/png', sizes: '16x16' },
+      { rel: 'shortcut icon', type: 'image/png' },
+      { rel: 'apple-touch-icon', type: 'image/png' }
+    ];
+
+    links.forEach(function(linkConfig) {
+      var link = document.createElement('link');
+      link.rel = linkConfig.rel;
+      link.type = linkConfig.type;
+      if (linkConfig.sizes) link.sizes = linkConfig.sizes;
+      link.href = faviconUrl;
+      document.head.appendChild(link);
+    });
+  })();
+</script>
+
+<!-- Static favicon declarations -->
+<link rel="icon" type="image/png" sizes="any" href="https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png">
+<link rel="shortcut icon" href="https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png">
+<link rel="apple-touch-icon" href="https://res.cloudinary.com/dpqcw5vum/image/upload/v1772335672/ik-favicon_qcistn.png">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
