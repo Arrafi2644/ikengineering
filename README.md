@@ -155,8 +155,14 @@ server/
    ```bash
    bun install -g pm2
    pm2 start src/server.ts --name "ik-engineering-server"
+   or
+   PORT=3005 pm2 start src/server.ts --name "ikengineering"
    ```
-pm2 start src/server.ts --name "ikengineering"
+5. For restart:
+   ```
+   pm2 restart ikengineering
+   ```
+
 ## Troubleshooting
 
 ### Email not sending
