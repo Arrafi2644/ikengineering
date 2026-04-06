@@ -28,21 +28,6 @@ const getSingleService = async (serviceSlug: string) => {
     return service;
 };
 
-// const updateService = async (id: string, payload: Partial<IService>) => {
-
-//     const updatedService = await Service.findByIdAndUpdate(
-//         id,
-//         payload,
-//         { new: true, runValidators: true }
-//     );
-    
-//     if (!updatedService) {
-//         throw new AppError(404, "Service not found");
-//     }
-
-//     return updatedService;
-// }
-
 const updateService = async (
     serviceId: string,
     payload: Partial<IService>
