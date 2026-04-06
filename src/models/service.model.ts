@@ -5,7 +5,7 @@ import { model, Schema } from "mongoose";
 /* ================= Feature ================= */
 const featureSchema = new Schema<IFeature>(
   {
-    title: { type: String, required: true }  },
+    title: { type: String}  },
   { _id: false }
 );
 
@@ -16,7 +16,7 @@ const serviceSchema = new Schema<IService>(
     serviceIcon: { type: String, required: true },
     shortDescription: { type: String, required: true },
     image: { type: String, required: true },
-    features: { type: [featureSchema], required: true },
+    features: { type: [featureSchema], default: [] },
   },
   { timestamps: true }
 );
