@@ -2,7 +2,6 @@ import express from "express";
 import { submitContactForm } from "../controllers/contact-controller.js";
 import { submitJobApplication } from "../controllers/application-controller.js";
 import { uploadSpec, uploadCV } from "../middleware/upload.js";
-import { User } from "@/models/user.model.js";
 import { validateRequest } from "@/middleware/validateRequest.js";
 import { checkAuth } from "@/middleware/checkAuth.js";
 import { createUserZodSchema, updateUserZodSchema } from "@/validations/user.validation.js";
@@ -12,6 +11,8 @@ import { AuthControllers } from "@/controllers/auth.contollers.js";
 import { changePasswordZodSchema } from "@/validations/auth.validation.js";
 import { multerUpload } from "@/config/multer.config.js";
 import { ServiceControllers } from "@/controllers/service.controller.js";
+import { HeroSchema } from "@/validations/hero.validation.js";
+import { HeroControllers } from "@/controllers/hero.controller.js";
 
 const router = express.Router();
 
@@ -53,11 +54,28 @@ router.patch(
     multerUpload.single('image'),
     ServiceControllers.updateService
 );
-
 router.get("/service/:slug", ServiceControllers.getSingleService)
 router.get("/service", ServiceControllers.getAllServices)
 router.delete("/service/:id", 
     // checkAuth(...Object.values(Role)),
      ServiceControllers.deleteService)
+
+
+// Hero 
+router.post(
+    '/hero/create-hero', 
+    // multerUpload.array('files'),
+    multerUpload.array("files"),
+    // validateRequest(HeroSchema),
+    HeroControllers.createHero
+)
+router.patch(
+    "/hero/update-hero/:id", 
+    multerUpload.array('files', 5),
+    validateRequest(HeroSchema), 
+    HeroControllers.updateHero
+)
+
+router.get("/hero/:id", HeroControllers.getSingleHero)
 
 export default router;
