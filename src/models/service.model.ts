@@ -13,6 +13,7 @@ const serviceSchema = new Schema<IService>(
   {
     title: { type: String, required: true, unique: true },
     slug: { type: String, unique: true },
+    serviceIcon: { type: String, required: true },
     shortDescription: { type: String, required: true },
     image: { type: String, required: true },
     features: { type: [featureSchema], required: true },

@@ -25,6 +25,7 @@ const createService = catchAsync(async (req: Request, res: Response) => {
   const payload: IService = {
     title: data.title,
     image: serviceImage,
+    serviceIcon: data.serviceIcon,
     shortDescription: data.shortDescription,
     features: data.features,
   };
@@ -49,122 +50,6 @@ const createService = catchAsync(async (req: Request, res: Response) => {
     data: result,
   });
 });
-
-
-
-// const updateService = catchAsync(async (req: Request, res: Response) => {
-//   const serviceId = req.params.id as string;
-
-//   // Parse JSON data
-//   const data = req.body.data ? JSON.parse(req.body.data) : req.body;
-
-//   //  Only image file (NO icon files)
-//   const files = req.files as Record<string, Express.Multer.File[]> | undefined;
-//   const serviceImage = files?.serviceImage?.[0]?.path;
-
-//   // Fetch existing service
-//   const existingServiceDoc = await Service.findById(serviceId);
-//   if (!existingServiceDoc) {
-//     throw new AppError(404, "Service not found");
-//   }
-
-//   const existingService = existingServiceDoc.toObject();
-
-//   // Merge payload
-//   const payload: Partial<IService> = {
-//     title: data.title ?? existingService.title,
-//     image: serviceImage ?? existingService.image,
-//     shortDescription: data.shortDescription ?? existingService.shortDescription,
-//     features: data.features ?? existingService.features,
-//   };
-
-//   // Zod validation
-//   const parsed = updateServiceZodSchema.safeParse(payload);
-//   if (!parsed.success) {
-//     throw new AppError(
-//       400,
-//       parsed.error.issues
-//         .map(i => `${i.path.join(".")} ${i.message}`)
-//         .join(", ")
-//     );
-//   }
-
-//   // Update DB
-//   const updatedService = await ServiceServices.updateService(
-//     serviceId,
-//     parsed.data
-//   );
-
-//   if (!updatedService) {
-//     throw new AppError(500, "Failed to update service");
-//   }
-
-//   // Delete old image if replaced
-//   // if (serviceImage && existingService.overView.serviceImage) {
-//   //   await deleteImageFromCloudinary(existingService.overView.serviceImage);
-//   // }
-
-//   // Response
-//   sendResponse(res, {
-//     statusCode: 200,
-//     success: true,
-//     message: "Service updated successfully!",
-//     data: updatedService,
-//   });
-// });
-
-
-// const createService = catchAsync(async (req: Request, res: Response) => {
-//     const payload = req.body;
-
-//     if (req.file) {
-//         payload.image = (req.file as any).path;
-//     }
-
-//     const service = await ServiceServices.createService(payload)
-
-//     sendResponse(res, {
-//         statusCode: httpStatus.CREATED,
-//         success: true,
-//         message: "Service Created Successfully",
-//         data: service
-//     })
-// })
-
-// const updateService = catchAsync(
-//     async (req: Request, res: Response, next: NextFunction) => {
-//         const id = req.params.id as string;
-//         const payload = req.body;
-
-//         // Find existing brand
-//         const existingBrand = await Service.findById(id);
-
-//         if (!existingBrand) {
-//             throw new AppError(httpStatus.NOT_FOUND, "Brand not found");
-//         }
-
-//         // If new image uploaded
-//         if (req.file) {
-//             const newImage = (req.file as any).path;
-
-//             // Delete old image from cloudinary
-//             if (existingBrand.image) {
-//                 await deleteImageFromCloudinary(existingBrand.image);
-//             }
-
-//             payload.image = newImage;
-//         }
-
-//         const brand = await ServiceServices.updateService(id, payload);
-
-//         sendResponse(res, {
-//             statusCode: httpStatus.OK,
-//             success: true,
-//             message: "Brand Updated Successfully",
-//             data: brand,
-//         });
-//     }
-// );
 
 const updateService = catchAsync(
   async (req: Request, res: Response) => {
