@@ -2,6 +2,16 @@ import express from "express";
 import { submitContactForm } from "../controllers/contact-controller.js";
 import { submitJobApplication } from "../controllers/application-controller.js";
 import { uploadSpec, uploadCV } from "../middleware/upload.js";
+import { User } from "@/models/user.model.js";
+import { validateRequest } from "@/middleware/validateRequest.js";
+import { checkAuth } from "@/middleware/checkAuth.js";
+import { createUserZodSchema, updateUserZodSchema } from "@/validations/user.validation.js";
+import { UserControllers } from "@/controllers/user.controller.js";
+import { Role } from "@/interfaces/user.interface.js";
+import { AuthControllers } from "@/controllers/auth.contollers.js";
+import { changePasswordZodSchema } from "@/validations/auth.validation.js";
+import { multerUpload } from "@/config/multer.config.js";
+import { ServiceControllers } from "@/controllers/service.controller.js";
 
 const router = express.Router();
 
@@ -10,5 +20,44 @@ router.post("/contact", uploadSpec, submitContactForm);
 
 // Job application route with file upload middleware
 router.post("/application", uploadCV, submitJobApplication);
+
+// user 
+router.post('/user/register', validateRequest(createUserZodSchema), UserControllers.createUser)
+router.get('/user/me', checkAuth(...Object.values(Role)), UserControllers.getMe)
+router.get('/user',
+    //  checkAuth(Role.ADMIN),
+      UserControllers.getAllUser)
+router.get("/user/:id", checkAuth(Role.ADMIN), UserControllers.getSingleUser)
+router.delete("/user/:id", checkAuth(Role.ADMIN), UserControllers.deleteUser)
+router.patch("/user/:id", validateRequest(updateUserZodSchema), checkAuth(...Object.values(Role)), UserControllers.updateUser)
+
+// auth 
+router.post('/auth/login', AuthControllers.credentialLogin)
+router.post('/auth/logout', AuthControllers.logout)
+router.post("/auth/refresh-token", AuthControllers.getNewAccessToken)
+router.post("/auth/change-password", checkAuth(...Object.values(Role)), validateRequest(changePasswordZodSchema), AuthControllers.changePassword)
+
+// Service 
+router.post(
+    "/service/create-service",
+    // checkAuth(...Object.values(Role)),
+    multerUpload.fields([
+        { name: "serviceImage", maxCount: 1 },
+    ]),
+    ServiceControllers.createService
+);
+
+router.patch(
+    "/service/update-service/:id",
+    // checkAuth(...Object.values(Role)),
+    multerUpload.single('image'),
+    ServiceControllers.updateService
+);
+
+router.get("/service/:slug", ServiceControllers.getSingleService)
+router.get("/service", ServiceControllers.getAllServices)
+router.delete("/service/:id", 
+    // checkAuth(...Object.values(Role)),
+     ServiceControllers.deleteService)
 
 export default router;

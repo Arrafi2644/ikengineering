@@ -3,6 +3,7 @@ import cors from "cors";
 const allowedOrigins = [
   process.env.FRONTEND_URL,
   `http://localhost:${process.env.PORT || 3001}`,
+  `http://localhost:8080`,
   `http://127.0.0.1:${process.env.PORT || 3001}`
 ].filter(Boolean);
 
@@ -18,6 +19,6 @@ export const corsOptions: cors.CorsOptions = {
     }
   },
   credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"]
 };
