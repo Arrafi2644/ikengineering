@@ -5,7 +5,7 @@ export const HeroSchema = z.object({
   title: z.string().optional(),
   subtitle: z.string().optional(),
   shortDescription: z.string().optional(),
-  // images: z.array(z.string()).optional(),
+  images: z.array(z.string()).optional(),
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 });

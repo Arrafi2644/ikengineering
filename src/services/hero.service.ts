@@ -13,9 +13,9 @@ const createHero = async (payload: Partial<IHero>) => {
     return hero;
 };
 
-const getSingleHero = async (heroId: string) => {
+const getSingleHero = async () => {
 
-    const hero = await Hero.findById(heroId)
+    const hero = await Hero.find()
 
     if (!hero) {
         throw new AppError(httpStatus.NOT_FOUND, "Hero not found")

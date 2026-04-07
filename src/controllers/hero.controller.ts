@@ -10,6 +10,8 @@ import { IHero } from '@/interfaces/Hero.interface';
 
 const createHero = catchAsync(async (req: Request, res: Response) => {
 
+    console.log("Hero controller , ", req.body)
+
     const payload: IHero = {
         ...req.body,
         images: (req.files as Express.Multer.File[]).map(file => file.path)
@@ -37,13 +39,13 @@ const updateHero = catchAsync(
         }
 
         // If new images uploaded
-        if (req.files && Array.isArray(req.files)) {
+        if (req.files && Array.isArray(req.files) && req.files.length > 0) {
             const newImages = (req.files as Express.Multer.File[]).map(
                 (file) => file.path
             );
 
             // delete old images
-            if (existingProduct.images?.length && newImages.length < 0) {
+            if (existingProduct.images?.length && newImages.length < existingProduct.images.length) {
                 await Promise.all(
                     existingProduct.images.map((img) =>
                         deleteImageFromCloudinary(img)
@@ -67,8 +69,8 @@ const updateHero = catchAsync(
 
 const getSingleHero = catchAsync(async (req: Request, res: Response) => {
 
-    const heroId = req.params.id as string;
-    const result = await HeroServices.getSingleHero(heroId);
+    // const heroId = req.params.id as string;
+    const result = await HeroServices.getSingleHero();
 
     sendResponse(res, {
         statusCode: httpStatus.OK,

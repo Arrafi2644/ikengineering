@@ -27,7 +27,7 @@ router.post('/user/register', validateRequest(createUserZodSchema), UserControll
 router.get('/user/me', checkAuth(...Object.values(Role)), UserControllers.getMe)
 router.get('/user',
     //  checkAuth(Role.ADMIN),
-      UserControllers.getAllUser)
+    UserControllers.getAllUser)
 router.get("/user/:id", checkAuth(Role.ADMIN), UserControllers.getSingleUser)
 router.delete("/user/:id", checkAuth(Role.ADMIN), UserControllers.deleteUser)
 router.patch("/user/:id", validateRequest(updateUserZodSchema), checkAuth(...Object.values(Role)), UserControllers.updateUser)
@@ -56,26 +56,25 @@ router.patch(
 );
 router.get("/service/:slug", ServiceControllers.getSingleService)
 router.get("/service", ServiceControllers.getAllServices)
-router.delete("/service/:id", 
+router.delete("/service/:id",
     // checkAuth(...Object.values(Role)),
-     ServiceControllers.deleteService)
+    ServiceControllers.deleteService)
 
 
 // Hero 
 router.post(
-    '/hero/create-hero', 
-    // multerUpload.array('files'),
+    '/hero/create-hero',
     multerUpload.array("files"),
-    // validateRequest(HeroSchema),
+    validateRequest(HeroSchema),
     HeroControllers.createHero
 )
 router.patch(
-    "/hero/update-hero/:id", 
+    "/hero/update-hero/:id",
     multerUpload.array('files', 5),
-    validateRequest(HeroSchema), 
+    validateRequest(HeroSchema),
     HeroControllers.updateHero
 )
 
-router.get("/hero/:id", HeroControllers.getSingleHero)
+router.get("/hero", HeroControllers.getSingleHero)
 
 export default router;
