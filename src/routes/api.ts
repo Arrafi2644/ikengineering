@@ -13,6 +13,7 @@ import { multerUpload } from "@/config/multer.config.js";
 import { ServiceControllers } from "@/controllers/service.controller.js";
 import { HeroSchema } from "@/validations/hero.validation.js";
 import { HeroControllers } from "@/controllers/hero.controller.js";
+import { ProjectControllers } from "@/controllers/project.controller.js";
 
 const router = express.Router();
 
@@ -76,5 +77,29 @@ router.patch(
 )
 
 router.get("/hero", HeroControllers.getSingleHero)
+
+// Project 
+router.post(
+    "/project/create-project",
+    // checkAuth(...Object.values(Role)),
+    multerUpload.fields([
+        { name: "projectImage", maxCount: 1 },
+    ]),
+    ProjectControllers.createProject
+);
+
+router.patch(
+    "/project/update-project/:id",
+    // checkAuth(...Object.values(Role)),
+    multerUpload.single('image'),
+    ProjectControllers.updateProject
+);
+router.get("/project/:slug", ProjectControllers.getSingleProject)
+router.get("/project", ProjectControllers.getAllProjects)
+router.delete("/project/:id",
+    // checkAuth(...Object.values(Role)),
+    ProjectControllers.deleteProject)
+
+
 
 export default router;
