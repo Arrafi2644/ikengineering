@@ -14,6 +14,7 @@ import { ServiceControllers } from "@/controllers/service.controller.js";
 import { HeroSchema } from "@/validations/hero.validation.js";
 import { HeroControllers } from "@/controllers/hero.controller.js";
 import { ProjectControllers } from "@/controllers/project.controller.js";
+import { SiteInfoControllers } from "@/controllers/siteInfo.controller.js";
 
 const router = express.Router();
 
@@ -27,7 +28,6 @@ router.post("/application", uploadCV, submitJobApplication);
 router.post('/user/register', validateRequest(createUserZodSchema), UserControllers.createUser)
 router.get('/user/me', checkAuth(...Object.values(Role)), UserControllers.getMe)
 router.get('/user',
-    //  checkAuth(Role.ADMIN),
     UserControllers.getAllUser)
 router.get("/user/:id", checkAuth(Role.ADMIN), UserControllers.getSingleUser)
 router.delete("/user/:id", checkAuth(Role.ADMIN), UserControllers.deleteUser)
@@ -42,7 +42,6 @@ router.post("/auth/change-password", checkAuth(...Object.values(Role)), validate
 // Service 
 router.post(
     "/service/create-service",
-    // checkAuth(...Object.values(Role)),
     multerUpload.fields([
         { name: "serviceImage", maxCount: 1 },
     ]),
@@ -51,14 +50,12 @@ router.post(
 
 router.patch(
     "/service/update-service/:id",
-    // checkAuth(...Object.values(Role)),
     multerUpload.single('image'),
     ServiceControllers.updateService
 );
 router.get("/service/:slug", ServiceControllers.getSingleService)
 router.get("/service", ServiceControllers.getAllServices)
 router.delete("/service/:id",
-    // checkAuth(...Object.values(Role)),
     ServiceControllers.deleteService)
 
 
@@ -81,7 +78,6 @@ router.get("/hero", HeroControllers.getSingleHero)
 // Project 
 router.post(
     "/project/create-project",
-    // checkAuth(...Object.values(Role)),
     multerUpload.fields([
         { name: "projectImage", maxCount: 1 },
     ]),
@@ -90,16 +86,36 @@ router.post(
 
 router.patch(
     "/project/update-project/:id",
-    // checkAuth(...Object.values(Role)),
     multerUpload.single('image'),
     ProjectControllers.updateProject
 );
 router.get("/project/:slug", ProjectControllers.getSingleProject)
 router.get("/project", ProjectControllers.getAllProjects)
 router.delete("/project/:id",
-    // checkAuth(...Object.values(Role)),
     ProjectControllers.deleteProject)
 
+// Site info 
 
+router.get('/site-info', SiteInfoControllers.getSiteInfo);
+
+router.post(
+  "/site-info",
+  multerUpload.fields([
+    { name: "mainLogo", maxCount: 1 },
+    { name: "faviconLogo", maxCount: 1 },
+    { name: "footerLogo", maxCount: 1 },
+  ]),
+  SiteInfoControllers.createSiteInfo
+);
+
+router.patch(
+  "/site-info",
+  multerUpload.fields([
+    { name: "mainLogo", maxCount: 1 },
+    { name: "faviconLogo", maxCount: 1 },
+    { name: "footerLogo", maxCount: 1 },
+  ]),
+  SiteInfoControllers.updateSiteInfo
+);
 
 export default router;
