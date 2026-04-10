@@ -82,7 +82,6 @@ export const submitContactForm = async (
     console.log('✅ Email sent successfully! Message ID:', info.messageId);
     console.log('Response:', info.response);
 
-    // Clean up uploaded file after sending email
     if (req.file) {
       try {
         const fs = await import('fs/promises');
@@ -90,7 +89,6 @@ export const submitContactForm = async (
         console.log('🗑️ Cleaned up temporary file:', req.file.path);
       } catch (cleanupError) {
         console.error('⚠️ Failed to clean up file:', cleanupError);
-        // Don't fail the request if cleanup fails
       }
     }
 

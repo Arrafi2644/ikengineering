@@ -1,0 +1,1 @@
+export const ContactFormSearchableFields = ["name", "email", "projectType", "company", "preferredContactTime"];
