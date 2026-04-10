@@ -15,6 +15,9 @@ import { HeroSchema } from "@/validations/hero.validation.js";
 import { HeroControllers } from "@/controllers/hero.controller.js";
 import { ProjectControllers } from "@/controllers/project.controller.js";
 import { SiteInfoControllers } from "@/controllers/siteInfo.controller.js";
+import { contactFormSchema } from "@/validations/contact.validation.js";
+import { ContactController } from "@/controllers/contact.controller.js";
+import { JobApplicationController } from "@/controllers/jobApplication.controller.js";
 
 const router = express.Router();
 
@@ -99,23 +102,47 @@ router.delete("/project/:id",
 router.get('/site-info', SiteInfoControllers.getSiteInfo);
 
 router.post(
-  "/site-info",
-  multerUpload.fields([
-    { name: "mainLogo", maxCount: 1 },
-    { name: "faviconLogo", maxCount: 1 },
-    { name: "footerLogo", maxCount: 1 },
-  ]),
-  SiteInfoControllers.createSiteInfo
+    "/site-info",
+    multerUpload.fields([
+        { name: "mainLogo", maxCount: 1 },
+        { name: "faviconLogo", maxCount: 1 },
+        { name: "footerLogo", maxCount: 1 },
+    ]),
+    SiteInfoControllers.createSiteInfo
 );
 
 router.patch(
-  "/site-info",
-  multerUpload.fields([
-    { name: "mainLogo", maxCount: 1 },
-    { name: "faviconLogo", maxCount: 1 },
-    { name: "footerLogo", maxCount: 1 },
-  ]),
-  SiteInfoControllers.updateSiteInfo
+    "/site-info",
+    multerUpload.fields([
+        { name: "mainLogo", maxCount: 1 },
+        { name: "faviconLogo", maxCount: 1 },
+        { name: "footerLogo", maxCount: 1 },
+    ]),
+    SiteInfoControllers.updateSiteInfo
 );
+
+// Contact form 
+
+router.post(
+    '/contact-form/submit-form',
+       multerUpload.fields([
+        { name: "contactFile", maxCount: 3 },
+    ]),
+    ContactController.contactForm
+)
+
+router.get("/contact-form/:id", ContactController.getSingleContactForm);
+router.get("/contact-form", ContactController.getAllContactForms);
+router.delete("/contact-form/:id", ContactController.deleteContactForm);
+
+// Job Application 
+router.post(
+  "/job-application",
+  multerUpload.single("cvFile"),
+  JobApplicationController.submitJobApplication
+);
+router.get("/job-application/:id", JobApplicationController.getSingleJobApplication);
+router.get("/job-application", JobApplicationController.getAllJobApplications);
+router.delete("/job-application/:id", JobApplicationController.deleteJobApplication);
 
 export default router;

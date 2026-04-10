@@ -1,0 +1,1 @@
+export const JobApplicationSearchableFields = ["firstName", "lastName", "email", "phone", "position"];
