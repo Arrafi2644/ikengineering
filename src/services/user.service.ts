@@ -6,7 +6,6 @@ import { User } from '@/models/user.model';
 import AppError from '@/errorHelpers/appError';
 import { QueryBuilder } from '@/utils/QueryBuilder';
 import { UsersSearchableFields } from '@/constants/user.constants';
-import { envVars } from '@/config/env';
 
 
 const createUserService = async (payload: Partial<IUser>) => {
@@ -74,50 +73,18 @@ const deleteUser = async (id: string) => {
     if (!user) {
         throw new AppError(httpStatus.NOT_FOUND, "User Not Found")
     }
-     
+
     await User.findByIdAndDelete(id);
-    
+
     return {
         data: null
     }
 };
 
 
-// const updateUser = async (userId: string, payload: Partial<IUser>, decodedToken: JwtPayload) => {
-
-//     if (decodedToken.role === Role.EDITOR) {
-//         if (userId !== decodedToken.userId) {
-//             throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized")
-//         }
-//     }
-
-//     if(decodedToken.role === Role.EDITOR){
-//         if(payload.password){
-//             throw new AppError(httpStatus.BAD_REQUEST, "You cannot update password.")
-//         }
-//     }
-
-//     const ifUserExist = await User.findById(userId)
-
-//     if (!ifUserExist) {
-//         throw new AppError(httpStatus.NOT_FOUND, "User not found")
-//     }
-
-//     if (payload.role) {
-//         if (payload.role === Role.ADMIN && decodedToken.role === Role.EDITOR) {
-//             throw new AppError(httpStatus.FORBIDDEN, "You are not authorized")
-//         }
-//     }
-
-//     const newUpdatedUser = await User.findByIdAndUpdate(userId, payload, { new: true, runValidators: true })
-
-//     return newUpdatedUser;
-// }
-
 const updateUser = async (
     userId: string,
-    payload: Partial<IUser>,
-    decodedToken: JwtPayload
+    payload: Partial<IUser>
 ) => {
     // Check if user exists
     const existingUser = await User.findById(userId);
@@ -125,26 +92,11 @@ const updateUser = async (
         throw new AppError(httpStatus.NOT_FOUND, "User not found");
     }
 
-    // Editor Role Restrictions
-    if (decodedToken.role === Role.EDITOR) {
-        if (userId !== decodedToken.userId) {
-            throw new AppError(httpStatus.UNAUTHORIZED, "You are not authorized to update this user.");
-        }
-
-        if (payload.password) {
-            throw new AppError(httpStatus.BAD_REQUEST, "You cannot update your password here.");
-        }
-
-        if (payload.role || payload.isActive || payload.isDeleted || payload.isVerified) {
-            throw new AppError(httpStatus.FORBIDDEN, "You are not authorized to modify these fields.");
-        }
-    }
 
     if (payload.password) {
-        const hashedPassword = await bcryptjs.hash(payload.password, Number(envVars.BCRYPT_SALT_ROUND))
-        payload.password = hashedPassword;
+        payload.password = await bcryptjs.hash(payload.password, 10);
     }
-
+    
     // No restrictions for Admin — directly update
     const updatedUser = await User.findByIdAndUpdate(userId, payload, {
         new: true,

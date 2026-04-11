@@ -29,12 +29,16 @@ router.post("/application", uploadCV, submitJobApplication);
 
 // user 
 router.post('/user/register', validateRequest(createUserZodSchema), UserControllers.createUser)
-router.get('/user/me', checkAuth(...Object.values(Role)), UserControllers.getMe)
+router.get('/user/me',
+     checkAuth(...Object.values(Role)),
+      UserControllers.getMe)
 router.get('/user',
     UserControllers.getAllUser)
 router.get("/user/:id", checkAuth(Role.ADMIN), UserControllers.getSingleUser)
-router.delete("/user/:id", checkAuth(Role.ADMIN), UserControllers.deleteUser)
-router.patch("/user/:id", validateRequest(updateUserZodSchema), checkAuth(...Object.values(Role)), UserControllers.updateUser)
+router.delete("/user/:id",
+    UserControllers.deleteUser)
+router.patch("/user/:id", validateRequest(updateUserZodSchema),
+  UserControllers.updateUser)
 
 // auth 
 router.post('/auth/login', AuthControllers.credentialLogin)
@@ -125,7 +129,7 @@ router.patch(
 
 router.post(
     '/contact-form/submit-form',
-       multerUpload.fields([
+    multerUpload.fields([
         { name: "contactFile", maxCount: 3 },
     ]),
     ContactController.contactForm
@@ -137,9 +141,9 @@ router.delete("/contact-form/:id", ContactController.deleteContactForm);
 
 // Job Application 
 router.post(
-  "/job-application",
-  multerUpload.single("cvFile"),
-  JobApplicationController.submitJobApplication
+    "/job-application",
+    multerUpload.single("cvFile"),
+    JobApplicationController.submitJobApplication
 );
 router.get("/job-application/:id", JobApplicationController.getSingleJobApplication);
 router.get("/job-application", JobApplicationController.getAllJobApplications);
