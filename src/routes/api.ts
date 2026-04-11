@@ -18,6 +18,8 @@ import { SiteInfoControllers } from "@/controllers/siteInfo.controller.js";
 import { contactFormSchema } from "@/validations/contact.validation.js";
 import { ContactController } from "@/controllers/contact.controller.js";
 import { JobApplicationController } from "@/controllers/jobApplication.controller.js";
+import { SEOControllers } from "@/controllers/seo.controller.js";
+import { createSEOZodSchema, updateSEOZodSchema } from "@/validations/seo.validation.js";
 
 const router = express.Router();
 
@@ -148,5 +150,28 @@ router.post(
 router.get("/job-application/:id", JobApplicationController.getSingleJobApplication);
 router.get("/job-application", JobApplicationController.getAllJobApplications);
 router.delete("/job-application/:id", JobApplicationController.deleteJobApplication);
+
+// SEO
+
+router.get('/seo', SEOControllers.getAllSeo)
+router.get('/seo/:pagePath', SEOControllers.getSinglePageSEO);
+router.post(
+    '/seo',
+    validateRequest(createSEOZodSchema),
+    SEOControllers.createSEO
+);
+
+router.patch(
+    '/seo/:id',
+    validateRequest(updateSEOZodSchema),
+    SEOControllers.updateSEO
+);
+
+router.delete(
+    '/seo/:pagePath',
+    SEOControllers.deleteSEO
+);
+
+
 
 export default router;
