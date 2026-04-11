@@ -19,7 +19,7 @@ const createService = async (payload: IService) => {
 
 const getSingleService = async (serviceSlug: string) => {
 
-    const service = await Service.findOne({slug: serviceSlug})
+    const service = await Service.findOne({ slug: serviceSlug })
 
     if (!service) {
         throw new AppError(httpStatus.NOT_FOUND, "Service not found")
@@ -49,6 +49,10 @@ const updateService = async (
 };
 
 const getAllServices = async (query: Record<string, string>) => {
+    
+    if (!query.sort) {
+        query.sort = "createdAt";
+    }
 
     const queryBuilder = new QueryBuilder(Service.find(), query)
 
