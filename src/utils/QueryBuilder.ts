@@ -60,7 +60,7 @@ search(searchableField: string[]): this {
 }
 
     sort(): this {
-        const sort = this.query.sort || "createdAt";
+        const sort = this.query.sort || "-createdAt";
         this.modelQuery = this.modelQuery.sort(sort)
         return this;
     }
@@ -88,7 +88,7 @@ search(searchableField: string[]): this {
         const filter = baseFilter || this.modelQuery.getFilter();
         const totalDocuments = await this.modelQuery.model.countDocuments(filter)
         const page = Number(this.query.page) || 1;
-        const limit = Number(this.query.limit) || 10;
+        const limit = Number(this.query.limit) || 20;
         const totalPage = Math.ceil(totalDocuments / limit)
 
         return { page: page, limit: limit, total: totalDocuments, totalPage: totalPage }
