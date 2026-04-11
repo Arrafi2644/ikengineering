@@ -26,9 +26,6 @@ export const createUserZodSchema = z.object({
     ,
     phone: z
         .string({ invalid_type_error: "Phone Number must be string" })
-        .regex(/^(?:\+64|0)[1-9]\d{7,9}$/, {
-            message: "Phone number must be valid for New Zealand. Format: +64XXXXXXXXX or 0XXXXXXXXX",
-        })
         .optional(),
     role: z
         .enum([Role.ADMIN, Role.EDITOR], {
@@ -44,9 +41,6 @@ export const updateUserZodSchema = z.object({
         .max(50, { message: "Name cannot exceed 50 characters." }).optional(),
     phone: z
         .string({ invalid_type_error: "Phone Number must be string" })
-        .regex(/^(?:\+64|0)[1-9]\d{7,9}$/, {
-            message: "Phone number must be valid for New Zealand. Format: +64XXXXXXXXX or 0XXXXXXXXX",
-        })
         .optional(),
     role: z.enum([Role.ADMIN, Role.EDITOR], {
         invalid_type_error: "Role must be either ADMIN or EDITOR",
