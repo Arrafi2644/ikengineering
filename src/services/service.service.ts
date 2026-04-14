@@ -12,6 +12,9 @@ const createService = async (payload: IService) => {
         throw new Error("A service with this title already exists.");
     }
 
+    const total = await Service.countDocuments();
+    payload.order = total + 1;
+
     const service = await Service.create(payload)
 
     return service;
@@ -49,9 +52,9 @@ const updateService = async (
 };
 
 const getAllServices = async (query: Record<string, string>) => {
-    
+
     if (!query.sort) {
-        query.sort = "createdAt";
+        query.sort = "order";
     }
 
     const queryBuilder = new QueryBuilder(Service.find(), query)
@@ -86,10 +89,49 @@ const deleteService = async (serviceId: string) => {
     return null;
 };
 
+const reorderServices = async (
+    payload: { _id: string; order: number }[]
+) => {
+    const total = await Service.countDocuments();
+
+    // ✅ সব service আসছে কিনা check
+    if (payload.length !== total) {
+        throw new AppError(400, "All services must be included");
+    }
+
+    // ✅ duplicate check
+    const orders = payload.map(item => item.order);
+    const uniqueOrders = new Set(orders);
+
+    if (orders.length !== uniqueOrders.size) {
+        throw new AppError(400, "Duplicate order is not allowed");
+    }
+
+    // ✅ range check
+    for (const order of orders) {
+        if (order < 1 || order > total) {
+            throw new AppError(400, "Invalid order value");
+        }
+    }
+
+    // 🔥 bulk update
+    const bulkOps = payload.map(item => ({
+        updateOne: {
+            filter: { _id: item._id },
+            update: { $set: { order: item.order } }
+        }
+    }));
+
+    await Service.bulkWrite(bulkOps);
+
+    return null;
+};
+
 export const ServiceServices = {
     createService,
     getSingleService,
     updateService,
     getAllServices,
-    deleteService
+    deleteService,
+    reorderServices
 }
