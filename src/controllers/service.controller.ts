@@ -87,6 +87,7 @@ const updateService = catchAsync(
     });
   }
 );
+
 const getSingleService = catchAsync(async (req: Request, res: Response) => {
 
     const serviceSlug = req.params.slug as string;
@@ -99,7 +100,6 @@ const getSingleService = catchAsync(async (req: Request, res: Response) => {
         data: result
     });
 });
-
 
 const getAllServices = catchAsync(async (req: Request, res: Response) => {
 
@@ -129,10 +129,24 @@ const deleteService = catchAsync(async (req: Request, res: Response) => {
     });
 });
 
+const reorderServices = catchAsync(async (req: Request, res: Response) => {
+  const payload = req.body;
+
+  const result = await ServiceServices.reorderServices(payload);
+
+  sendResponse(res, {
+    statusCode: httpStatus.OK,
+    success: true,
+    message: "Services reordered successfully",
+    data: result,
+  });
+});
+
 export const ServiceControllers = {
     createService,
     getSingleService,
     updateService,
     getAllServices,
-    deleteService
+    deleteService,
+    reorderServices
 }

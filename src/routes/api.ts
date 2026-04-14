@@ -57,6 +57,8 @@ router.post(
     ServiceControllers.createService
 );
 
+router.patch("/service/reorder", ServiceControllers.reorderServices);
+
 router.patch(
     "/service/update-service/:id",
     multerUpload.single('image'),

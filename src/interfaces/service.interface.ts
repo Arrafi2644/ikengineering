@@ -11,6 +11,7 @@ export interface IService {
     shortDescription: string;
     image: string;
     features: IFeature[];
+    order?: number;
     createdAt?: string;
     updatedAt?: string;
 }

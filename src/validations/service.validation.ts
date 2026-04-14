@@ -17,6 +17,7 @@ export const createServiceZodSchema = z.object({
     image: z.string().url("Image must be a valid URL").optional(),
     shortDescription: z.string().min(1),
     features: z.array(featureZodSchema).nonempty().optional(),
+    order: z.number().optional()
 });
 
 /* ================= UPDATE SERVICE ================= */
@@ -30,4 +31,5 @@ export const updateServiceZodSchema = z.object({
     image: z.string().url("Image must be a valid URL").optional(),
     shortDescription: z.string().optional(),
     features: z.array(featureZodSchema).optional(),
+    order: z.number().optional()
 });
