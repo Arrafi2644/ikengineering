@@ -94,7 +94,7 @@ const reorderServices = async (
 ) => {
     const total = await Service.countDocuments();
 
-    // ✅ সব service আসছে কিনা check
+    // ✅ all services are available check
     if (payload.length !== total) {
         throw new AppError(400, "All services must be included");
     }
